@@ -31,7 +31,7 @@
     </b-field>
     <b-table
       :data="dbtData"
-      :columns="columns"
+      :columns="dbtColumns"
       detailed
       @details-open="resetNewProp"
     >
@@ -52,11 +52,6 @@
               v-on:paste.native="event => generateProps(event, row)"
             />
           </b-field>
-          <b-button
-            v-if="row.row_props.length"
-            class="is-6 is-primary is-full my-5"
-            @click="openProp(row)"
-          >Ver as propriedades</b-button>
           <hr>
           <b-field label="Nova propriedade" grouped label-position="on-border" class="form-new-prop">
             <b-input
@@ -99,18 +94,6 @@
         </section>
       </template>
     </b-table>
-    <b-modal v-if="isCardModalActive" v-model="isCardModalActive" full-screen>
-      <div class="card">
-        <b-button
-          type="is-danger"
-          class="is-full"
-          icon-left="close"
-          @click="isCardModalActive = false"
-        >FECHAR MODAL</b-button>
-        <b-table :data="fieldValues(propSelected)" :columns="fieldProps(propSelected)">
-        </b-table>
-      </div>
-    </b-modal>
 
     <b-switch
       v-model="jsMode"
@@ -130,7 +113,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
   <script src="https://cdn.jsdelivr.net/npm/buefy/dist/buefy.min.js"></script>
-  <script src="main.js"></script>
+  <script src="main.js" type="module"></script>
 </body>
 
 </html>

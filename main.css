@@ -51,5 +51,7 @@ pre {
 .operator { color: #d4d4d4; }
 .brace    { color: #dcdcaa; }
 .bracket  { color: #dcdcaa; }
+.parentheses  { color: #ffd700; }
+.st-name { color: #4fc1ff; } /** Variable name **/
 .function-slice { color: #ccbf84; font-weight: bold; }
 .comment        { color: #6a9955; font-style: italic; }
