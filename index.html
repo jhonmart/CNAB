@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CNAB Formatter</title>
+  <meta name="author" content="Jonatas Martins">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/buefy/dist/buefy.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@5.8.55/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+  <div id="app" class="p-2" :class="{'darkMode': darkMode}">
+    <b-switch
+      v-model="darkMode"
+      passive-type='is-dark'
+      type='is-warning'
+      class="custom-switch-dark">
+      {{ darkMode ? "Dark Mode" : "Light Mode" }}
+    </b-switch>
+    <b-field label="DBT dados" label-position="on-border" class="mt-5">
+      <b-input
+        maxlength="0"
+        type="text"
+        placeholder="Cole o conteúdo do DBT AQUI"
+        v-on:paste.native="dbtContent"
+      />
+    </b-field>
+    <b-table
+      :data="dbtData"
+      :columns="columns"
+      detailed
+      @details-open="resetNewProp"
+    >
+      <template #empty>
+        <div class="is-flex is-justify-content-center has-text-weight-semibold">
+          <b-icon icon="text-search" class="mr-1"></b-icon>
+          Sem Informações
+        </div>
+      </template>
+
+      <template #detail="{ row }">
+        <section :key="">
+          <b-field label="Cole o template aqui" label-position="on-border">
+            <b-input
+              maxlength="0"
+              type="text"
+              placeholder="NOME | INICIO | TAMANHO"
+              v-on:paste.native="event => generateProps(event, row)"
+            />
+          </b-field>
+          <b-button
+            v-if="row.row_props.length"
+            class="is-6 is-primary is-full my-5"
+            @click="openProp(row)"
+          >Ver as propriedades</b-button>
+          <hr>
+          <b-field label="Nova propriedade" grouped label-position="on-border" class="form-new-prop">
+            <b-input
+              placeholder="Nome"
+              type="search"
+              v-model="row.row_draft.name"
+            ></b-input>
+            <b-input
+              placeholder="Inicia em"
+              type="number"
+              v-model="row.row_draft.start"
+            ></b-input>
+            <b-input
+              placeholder="Termina em"
+              type="number"
+              v-model="row.row_draft.end"
+            ></b-input>
+            <b-input placeholder="Valor" v-model="getValue(row)" disabled></b-input>
+            <p class="control">
+              <b-button class="button is-primary is-full" icon-left="plus" @click="addProp(row)">Adicionar</b-button>
+            </p>
+          </b-field>
+          <p class="title is-6">Detalhe das propriedades:</p>
+          <b-table
+            :data="row.row_props"
+            :columns="propsColumns"
+            detailed
+            paginated
+            per-page="15"
+          >
+            <template #detail="{ row }">
+              <b-input
+                placeholder="Nome"
+                type="search"
+                v-model="row.name"
+                v-on:change.native="updateJSON"
+              ></b-input>
+            </template>
+          </b-table>
+        </section>
+      </template>
+    </b-table>
+    <b-modal v-if="isCardModalActive" v-model="isCardModalActive" full-screen>
+      <div class="card">
+        <b-button
+          type="is-danger"
+          class="is-full"
+          icon-left="close"
+          @click="isCardModalActive = false"
+        >FECHAR MODAL</b-button>
+        <b-table :data="fieldValues(propSelected)" :columns="fieldProps(propSelected)">
+        </b-table>
+      </div>
+    </b-modal>
+
+    <b-switch
+      v-model="jsMode"
+      :rounded="false"
+      :outlined="false"
+      :type="null"
+      :passive-type='null'>{{ jsMode ? "Ver JSON" : "Ver JS" }}
+    </b-switch>
+    <b-field
+      :label="jsMode ? 'JS Atual' : 'JSON atual'"
+      label-position="on-border"
+      class="mt-5"
+    >
+      <pre id="json-output" v-html="jsMode ? syntaxHighlightJS : syntaxHighlightJSON" />
+    </b-field>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/buefy/dist/buefy.min.js"></script>
+  <script src="main.js"></script>
+</body>
+
+</html>
