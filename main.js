@@ -1,7 +1,7 @@
-import { syntaxJS, syntaxJSON } from "./utils/syntax.js";
+import { syntaxDBT, syntaxJS, syntaxJSON } from "./utils/syntax.js";
 import { varNamePattern, fieldGetJS, formatProp, dbtItem } from "./utils/patterns.js";
-import { clipboardData } from "./utils/catch.js";
-import { dbtColumns, propsColumns } from "./utils/constants.js";
+import { clipboardData, handleTooltipFollowMouse } from "./utils/catch.js";
+import { dbtColumns, propsColumns, testPattern } from "./utils/constants.js";
 import { deepClone, resetNewProp } from "./utils/tools.js";
 
 new Vue({
@@ -11,6 +11,8 @@ new Vue({
     dbtFileContent: "",
     dbtJSON: "",
     dbtJS: "",
+    dbtText: "",
+    testPattern,
     jsMode: false,
     dbtColumns,
     propsColumns,
@@ -56,13 +58,13 @@ new Vue({
           .slice(row_draft.start - 1, row_draft.end);
       return "";
     },
-    fieldValues({ row_props, row_type }) {
+    fieldValues({ row_props, row_type }, raw=false) {
       return this.rowsFile
         .filter(row => row.at(0) === row_type)
         .reduce((list, currentRow) => {
           const fields = {};
           row_props.forEach((propDetail) => {
-            fields[varNamePattern(propDetail.name)] = currentRow.slice(propDetail.start - 1, propDetail.end);
+            fields[raw ? propDetail.name : varNamePattern(propDetail.name)] = currentRow.slice(propDetail.start - 1, propDetail.end);
           });
           list.push(fields);
           return list;
@@ -79,12 +81,22 @@ new Vue({
       this.updateJSON();
     },
     dbtContent(event) {
-      this.dbtFileContent = clipboardData(event);
+      const dbtDataContent = clipboardData(event);
+
+      if (dbtDataContent.includes(testPattern)) this.dbtTeste(dbtDataContent);
+      else this.dbtFileContent = clipboardData(event);
     },
     updateJS() {
       this.dbtJS = this.dbtData
         .map(fieldGetJS)
         .reduce((string, current) => string + current, "");
+    },
+    updateDBT() {
+      const groups = this.dbtData
+        .map(row => this.fieldValues(row, true));
+
+      this.dbtText = syntaxDBT(groups);
+      this.$nextTick(handleTooltipFollowMouse);
     },
     updateJSON() {
       const details = this.dbtData
@@ -93,6 +105,23 @@ new Vue({
 
       this.dbtJSON = JSON.stringify(details, null, 2);
       this.updateJS();
+      this.updateDBT();
+    },
+    dbtTeste(contentTeste) {
+      const blocks = contentTeste.split(testPattern);
+
+      this.dbtFileContent = blocks[0];
+      this.dbtData.forEach(({ row_props }, index) => {
+        const rowsColumns = blocks[index + 1].trim()
+          .replaceAll('\r', '')
+          .split('\n')
+          .map(row => row.split('\t'))
+          .map(formatProp);
+
+          row_props.push(...rowsColumns);
+      });
+
+      this.updateJSON();
     }
   },
 });

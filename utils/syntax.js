@@ -1,3 +1,5 @@
+import { getNewColor } from "./tools.js";
+
 export function syntaxJSON(data) {
   const json = data.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|\b\d+\.?\d*\b)/g, match => {
@@ -39,4 +41,27 @@ export function syntaxJS(data) {
     .replace(/([\[\]])/g, '<span class="bracket">$1</span>')
     // Parenteses ( )
     .replace(/([\(\)])/g, '<span class="parentheses">$1</span>');
+}
+
+export function syntaxDBT(groups) {
+  let colorId = 0;
+  const cacheColor = {};
+
+  return groups.map(group => {
+    return group.map(row => {
+      return Object.entries(row).map(([name, value], propIx) => {
+        const colorName = `pr${propIx}_${name}`;
+        const tag = document.createElement("span");
+        const color = cacheColor[colorName] || getNewColor(colorId++);
+  
+        if (!cacheColor[colorName]) cacheColor[colorName] = color;
+  
+        tag.classList.add("prop-dbt");
+        tag.innerHTML = value; // XSS??
+        tag.setAttribute('data-tooltip', name);
+        tag.style.color = color;
+        return tag.outerHTML;
+      }).join("");
+    }).join("<br>");
+  }).join("<br>");
 }

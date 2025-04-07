@@ -13,7 +13,7 @@
 </head>
 
 <body>
-  <div id="app" class="p-2" :class="{'darkMode': darkMode}">
+  <div id="app" class="p-2" :class="{'darkMode': darkMode}" v-on:paste.native="dbtTeste">
     <b-switch
       v-model="darkMode"
       passive-type='is-dark'
@@ -95,20 +95,17 @@
       </template>
     </b-table>
 
-    <b-switch
-      v-model="jsMode"
-      :rounded="false"
-      :outlined="false"
-      :type="null"
-      :passive-type='null'>{{ jsMode ? "Ver JSON" : "Ver JS" }}
-    </b-switch>
-    <b-field
-      :label="jsMode ? 'JS Atual' : 'JSON atual'"
-      label-position="on-border"
-      class="mt-5"
-    >
-      <pre id="json-output" v-html="jsMode ? syntaxHighlightJS : syntaxHighlightJSON" />
-    </b-field>
+    <b-tabs>
+      <b-tab-item label="JSON" icon="code-json">
+        <pre class="output-data" v-html="syntaxHighlightJSON"></pre>
+      </b-tab-item>
+      <b-tab-item label="JavaScript" icon="nodejs">
+        <pre class="output-data" v-html="syntaxHighlightJS"></pre>
+      </b-tab-item>
+      <b-tab-item label="DBT Search" icon="text-box-search">
+        <pre class="output-data" v-html="dbtText"></pre>
+      </b-tab-item>
+    </b-tabs>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>

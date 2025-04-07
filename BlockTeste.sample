@@ -1,0 +1,29 @@
+HCAP001
+R00037481030011010000                                                                                                            20250404        00000000201045800171101461
+R00037481030011010000                                                                                                            20250404        00000002269745800171201461
+R00037481390011010999TESTE DE QUEDA DE RATEIO - DESCRICAO SERA ENVIADA PELO BANCO                                        20250404                00000000000              
+Z00000004
+
+TESTE
+
+Tipo de registro do arquivo	1	1
+Tipo do arquivo de retorno	2	8
+
+TESTE
+
+Tipo de registro do arquivo	1	1
+Código de identificação do título	2	10
+Numero da parcela de referencia	12	3
+Código do tipo de registro	15	3
+Código tipo de recusa	18	4
+Descrição tipo de recusa	22	100
+Data da queda	122	8
+Data prevista de crédito / débito	130	8
+Data do evento	138	8
+Valor do crédito	146	11
+Código de referencia	157	15
+
+TESTE
+
+Tipo de registro do arquivo	1	1	A
+Quantidade de registros do arquivo	2	8	N
