@@ -77,19 +77,34 @@
           <p class="title is-6">Detalhe das propriedades:</p>
           <b-table
             :data="row.row_props"
-            :columns="propsColumns"
-            detailed
             paginated
             per-page="15"
+            narrowed
           >
-            <template #detail="{ row }">
+            <b-table-column field="name" label="Nome" sortable v-slot="{ row }">
               <b-input
                 placeholder="Nome"
                 type="search"
                 v-model="row.name"
                 v-on:change.native="updateJSON"
+                class="column"
               ></b-input>
-            </template>
+            </b-table-column>
+            <b-table-column field="start" label="Inicio" numeric sortable v-slot="{ row }">
+              <div class="column">{{ row.start }}</div>
+            </b-table-column>
+            <b-table-column field="end" label="Fim" numeric sortable v-slot="{ row }">
+              <div class="column">{{ row.end }}</div>
+            </b-table-column>
+            <b-table-column field="end" label="Ações" v-slot="{ row: child }">
+              <div class="column">
+                <b-button
+                  @click="removeColumn(row, child)"
+                  type="is-danger"
+                  class="is-full"
+                >Excluir</b-button>
+              </div>
+            </b-table-column>
           </b-table>
         </section>
       </template>

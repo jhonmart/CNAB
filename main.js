@@ -3,6 +3,7 @@ import { varNamePattern, fieldGetJS, formatProp, dbtItem } from "./utils/pattern
 import { clipboardData, handleTooltipFollowMouse } from "./utils/catch.js";
 import { dbtColumns, propsColumns, testPattern } from "./utils/constants.js";
 import { deepClone, resetNewProp } from "./utils/tools.js";
+import { enginerSearch } from "./utils/types.js";
 
 new Vue({
   el: '#app',
@@ -84,7 +85,10 @@ new Vue({
       const dbtDataContent = clipboardData(event);
 
       if (dbtDataContent.includes(testPattern)) this.dbtTeste(dbtDataContent);
-      else this.dbtFileContent = clipboardData(event);
+      else {
+        this.dbtFileContent = dbtDataContent;
+        this.automaticallySearchColumns();
+      }
     },
     updateJS() {
       this.dbtJS = this.dbtData
@@ -122,6 +126,24 @@ new Vue({
       });
 
       this.updateJSON();
+    },
+    automaticallySearchColumns() {
+      const rowTypes = this.rowsFile.map(enginerSearch);
+      const refTypes = Object.fromEntries(rowTypes);
+      this.dbtData
+        .forEach(
+          ({ row_props, row_type }) => row_props.push(...refTypes[row_type])
+        );
+      this.updateJSON();
+    },
+    removeColumn(row, child) {
+      const result = row.row_props
+        .some(
+          ({start: startColumn}, index) =>
+            child.start === startColumn && row.row_props.splice(index, 1)
+          );
+      if (result) this.updateJSON();
+      else this.$buefy.toast.open("Falha ao tentar apagar item: " + child.name + "!");
     }
   },
 });
