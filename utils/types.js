@@ -1,10 +1,159 @@
 export const Registers = Object.freeze({
-  // A: {
-  //   props:{ }
-  // },
+  A: {
+    props: {
+      150: [
+        {
+          name: "Codigo do Registro",
+          start: 1,
+          end: 1
+        },
+        {
+          name: "Combo de Remessa",
+          start: 2,
+          end: 2
+        },
+        {
+          name: "Combo do Convenio",
+          start: 3,
+          end: 22
+        },
+        {
+          name: "Nome da Empresa",
+          start: 23,
+          end: 42
+        },
+        {
+          name: "Codigo do Banco",
+          start: 43,
+          end: 45
+        },
+        {
+          name: "Nome do Banco",
+          start: 46,
+          end: 65
+        },
+        {
+          name: "Data de Geraçào",
+          start: 66,
+          end: 73
+        },
+        {
+          name: "Numero Sequenc saldo",
+          start: 74,
+          end: 79
+        },
+        {
+          name: "Versão do layout",
+          start: 80,
+          end: 81
+        },
+        {
+          name: "Identificação do Serviço",
+          start: 82,
+          end: 98
+        },
+        {
+          name: "Reservado parao futuro 099",
+          start: 99,
+          end: 150
+        }
+      ]
+    }
+  },
   // B: {
   //   props:{ }
   // },
+  E: {
+    props: {
+      150: [
+        {
+          name: "Código do Registro",
+          start: 1,
+          end: 1
+        },
+        {
+          name: "IdClientenaEmpresa",
+          start: 2,
+          end: 26
+        },
+        {
+          name: "Agência para Débito",
+          start: 27,
+          end: 30
+        },
+        {
+          name: "IdClientenoBanco",
+          start: 31,
+          end: 44
+        },
+        {
+          name: "Datado Vencimento",
+          start: 45,
+          end: 52
+        },
+        {
+          name: "Valor do Débito",
+          start: 53,
+          end: 67
+        },
+        {
+          name: "Código da moeda",
+          start: 68,
+          end: 69
+        },
+        {
+          name: "Códigodo Plano",
+          start: 70,
+          end: 77
+        },
+        {
+          name: "Número Parcela",
+          start: 78,
+          end: 81
+        },
+        {
+          name: "Quantidade Parcelas",
+          start: 82,
+          end: 85
+        },
+        {
+          name: "Identificador Cobrança",
+          start: 86,
+          end: 95
+        },
+        {
+          name: "Id_titulo",
+          start: 96,
+          end: 105
+        },
+        {
+          name: "Valor Parcela Recente",
+          start: 106,
+          end: 113
+        },
+        {
+          name: "Convenio",
+          start: 114,
+          end: 118
+        },
+        {
+          name: "Filler",
+          start: 119,
+          end: 129
+        },
+        {
+          name: "Reservado para o futuro",
+          start: 130,
+          end: 149
+        },
+        {
+          name: "Código do Movimento",
+          start: 150,
+          end: 150
+        }
+      ]
+    }
+  },
   H: {
     props: {
       9: [
@@ -107,6 +256,28 @@ export const Registers = Object.freeze({
           start: 2,
           end: 9
         }
+      ],
+      150: [
+        {
+          name: "Código do Registro",
+          start: 1,
+          end: 1
+        },
+        {
+          name: "Total de registros do arquivo",
+          start: 2,
+          end: 7
+        },
+        {
+          name: "Valor registros",
+          start: 8,
+          end: 24
+        },
+        {
+          name: "fiituro",
+          start: 25,
+          end: 150
+        }
       ]
     }
   }
@@ -120,5 +291,10 @@ export const enginerSearch = (column) => {
   if (result) return [type, result];
   result = Object.entries(Registers[type].props)
     .find(([len, _data]) => len >= columnSize)?.[1];
-  return [type, result];
+  if (result) return [type, result];
+  console.info("Resultado não encontrado, tentando usar o maior!", type, Registers[type].props)
+  result = Object.values(Registers[type].props).at(-1);
+  if (result) return [type, result];
+  console.info("Nenhum tipo encontrado!", type);
+  return [type, []];
 };
