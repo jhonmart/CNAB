@@ -1,6 +1,6 @@
 import { syntaxDBT, syntaxJS, syntaxJSON } from "./utils/syntax.js";
 import { varNamePattern, fieldGetJS, formatProp, dbtItem } from "./utils/patterns.js";
-import { clipboardData, handleTooltipFollowMouse } from "./utils/catch.js";
+import { clipboardData } from "./utils/catch.js";
 import { dbtColumns, propsColumns, testPattern } from "./utils/constants.js";
 import { deepClone, resetNewProp } from "./utils/tools.js";
 import { enginerSearch } from "./utils/types.js";
@@ -82,7 +82,7 @@ new Vue({
       this.updateJSON();
     },
     dbtContent(event) {
-      const dbtDataContent = clipboardData(event);
+      const dbtDataContent = clipboardData(event).trim();
 
       if (dbtDataContent.includes(testPattern)) this.dbtTeste(dbtDataContent);
       else {
@@ -99,8 +99,7 @@ new Vue({
       const groups = this.dbtData
         .map(row => this.fieldValues(row, true));
 
-      this.dbtText = syntaxDBT(groups);
-      this.$nextTick(handleTooltipFollowMouse);
+      this.dbtText = syntaxDBT(groups, this.dbtData);
     },
     updateJSON() {
       const details = this.dbtData

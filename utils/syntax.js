@@ -43,13 +43,19 @@ export function syntaxJS(data) {
     .replace(/([\(\)])/g, '<span class="parentheses">$1</span>');
 }
 
-export function syntaxDBT(groups) {
+export function syntaxDBT(groups, rules) {
   let colorId = 0;
   const cacheColor = {};
 
   return groups.map(group => {
     return group.map(row => {
+      const rule = rules.find(
+        ({ row_type }) => row_type === row['Tipo de registro do arquivo']
+      )?.row_props;
+
       return Object.entries(row).map(([name, value], propIx) => {
+        const ruleField = rule.find(({ name: ruleName }) => ruleName === name);
+        const ruleLength = ruleField.end - ruleField.start + 1;
         const colorName = `pr${propIx}_${name}`;
         const tag = document.createElement("span");
         const color = cacheColor[colorName] || getNewColor(colorId++);
@@ -58,6 +64,8 @@ export function syntaxDBT(groups) {
   
         tag.classList.add("prop-dbt");
         tag.innerHTML = value; // XSS??
+        value.length !== ruleLength &&
+          tag.setAttribute('title', `Houve uma divergência: o campo apresenta ${value.length} caracteres, quando deveria ter ${ruleLength}.`);
         tag.setAttribute('data-tooltip', name);
         tag.style.color = color;
         return tag.outerHTML;

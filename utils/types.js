@@ -3,7 +3,7 @@ export const Registers = Object.freeze({
     props: {
       150: [
         {
-          name: "Codigo do Registro",
+          name: "Tipo de registro do arquivo",
           start: 1,
           end: 1
         },
@@ -67,7 +67,7 @@ export const Registers = Object.freeze({
     props: {
       150: [
         {
-          name: "Código do Registro",
+          name: "Tipo de registro do arquivo",
           start: 1,
           end: 1
         },
@@ -259,7 +259,7 @@ export const Registers = Object.freeze({
       ],
       150: [
         {
-          name: "Código do Registro",
+          name: "Tipo de registro do arquivo",
           start: 1,
           end: 1
         },
