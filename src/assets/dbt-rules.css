@@ -26,13 +26,8 @@
   font-family: monospace;
   border-radius: 8px;
 }
-.key { color: #9cdcfe; }
-.string { color: #ce9178; }
-.number-type { color: #b5cea8; }
-.boolean { color: #569cd6; }
-.null { color: #dcdcaa; }
 
-#app:not(.darkMode) .custom-switch-dark input[type=checkbox]+.check:before {
+#app:not(.darkMode) .custom-switch-dark input[type='checkbox'] + .check:before {
   background: yellow;
 }
 
@@ -43,18 +38,6 @@
 #app.darkMode .modal {
   justify-content: flex-start;
 }
-
-/* JS */
-.string   { color: #ce9178; }
-.number-type   { color: #b5cea8; }
-.keyword  { color: #c586c0; }
-.operator { color: #d4d4d4; }
-.brace    { color: #dcdcaa; }
-.bracket  { color: #dcdcaa; }
-.parentheses  { color: #ffd700; }
-.st-name { color: #4fc1ff; } /** Variable name **/
-.function-slice { color: #ccbf84; font-weight: bold; }
-.comment        { color: #6a9955; font-style: italic; }
 
 /* DTB File Style */
 .prop-dbt:hover {
@@ -83,6 +66,11 @@
 }
 
 /* Alerts */
-[title] {
+[fail] {
   background-color: #ba4747;
+}
+
+/* Utils */
+.unique-row {
+  white-space: initial;
 }

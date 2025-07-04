@@ -1,131 +1,15 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CNAB Formatter</title>
-  <meta name="author" content="Jonatas Martins">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/buefy/dist/buefy.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@5.8.55/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="main.css">
-</head>
-
-<body>
-  <div id="app" class="p-2" :class="{'darkMode': darkMode}" v-on:paste.native="dbtTeste">
-    <b-switch
-      v-model="darkMode"
-      passive-type='is-dark'
-      type='is-warning'
-      class="custom-switch-dark">
-      {{ darkMode ? "Dark Mode" : "Light Mode" }}
-    </b-switch>
-    <b-field label="DBT dados" label-position="on-border" class="mt-5">
-      <b-input
-        maxlength="0"
-        type="text"
-        placeholder="Cole o conteúdo do DBT AQUI"
-        v-on:paste.native="dbtContent"
-      />
-    </b-field>
-    <b-table
-      :data="dbtData"
-      :columns="dbtColumns"
-      detailed
-      @details-open="resetNewProp"
-    >
-      <template #empty>
-        <div class="is-flex is-justify-content-center has-text-weight-semibold">
-          <b-icon icon="text-search" class="mr-1"></b-icon>
-          Sem Informações
-        </div>
-      </template>
-
-      <template #detail="{ row }">
-        <section :key="">
-          <b-field label="Cole o template aqui" label-position="on-border">
-            <b-input
-              maxlength="0"
-              type="text"
-              placeholder="NOME | INICIO | TAMANHO"
-              v-on:paste.native="event => generateProps(event, row)"
-            />
-          </b-field>
-          <hr>
-          <b-field label="Nova propriedade" grouped label-position="on-border" class="form-new-prop">
-            <b-input
-              placeholder="Nome"
-              type="search"
-              v-model="row.row_draft.name"
-            ></b-input>
-            <b-input
-              placeholder="Inicia em"
-              type="number"
-              v-model="row.row_draft.start"
-            ></b-input>
-            <b-input
-              placeholder="Termina em"
-              type="number"
-              v-model="row.row_draft.end"
-            ></b-input>
-            <b-input placeholder="Valor" v-model="getValue(row)" disabled></b-input>
-            <p class="control">
-              <b-button class="button is-primary is-full" icon-left="plus" @click="addProp(row)">Adicionar</b-button>
-            </p>
-          </b-field>
-          <p class="title is-6">Detalhe das propriedades:</p>
-          <b-table
-            :data="row.row_props"
-            paginated
-            per-page="15"
-            narrowed
-          >
-            <b-table-column field="name" label="Nome" sortable v-slot="{ row }">
-              <b-input
-                placeholder="Nome"
-                type="search"
-                v-model="row.name"
-                v-on:change.native="updateJSON"
-                class="column"
-              ></b-input>
-            </b-table-column>
-            <b-table-column field="start" label="Inicio" numeric sortable v-slot="{ row }">
-              <div class="column">{{ row.start }}</div>
-            </b-table-column>
-            <b-table-column field="end" label="Fim" numeric sortable v-slot="{ row }">
-              <div class="column">{{ row.end }}</div>
-            </b-table-column>
-            <b-table-column field="end" label="Ações" v-slot="{ row: child }">
-              <div class="column">
-                <b-button
-                  @click="removeColumn(row, child)"
-                  type="is-danger"
-                  class="is-full"
-                >Excluir</b-button>
-              </div>
-            </b-table-column>
-          </b-table>
-        </section>
-      </template>
-    </b-table>
-
-    <b-tabs>
-      <b-tab-item label="JSON" icon="code-json">
-        <pre class="output-data" v-html="syntaxHighlightJSON"></pre>
-      </b-tab-item>
-      <b-tab-item label="JavaScript" icon="nodejs">
-        <pre class="output-data" v-html="syntaxHighlightJS"></pre>
-      </b-tab-item>
-      <b-tab-item label="DBT Search" icon="text-box-search">
-        <pre class="output-data" v-html="dbtText"></pre>
-      </b-tab-item>
-    </b-tabs>
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-  <script src="https://cdn.jsdelivr.net/npm/buefy/dist/buefy.min.js"></script>
-  <script src="main.js" type="module"></script>
-</body>
-
+<html lang="">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@5.8.55/css/materialdesignicons.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CNAB Formatter</title>
+    <meta name="author" content="Jonatas Martins">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
 </html>
