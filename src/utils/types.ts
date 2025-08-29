@@ -15,7 +15,7 @@ export const Registers = Object.freeze({
           end: 2,
         },
         {
-          name: 'Combo do Convenio',
+          name: 'Combo do Convênio',
           start: 3,
           end: 22,
         },
@@ -25,7 +25,7 @@ export const Registers = Object.freeze({
           end: 42,
         },
         {
-          name: 'Codigo do Banco',
+          name: 'Código do Banco',
           start: 43,
           end: 45,
         },
@@ -35,17 +35,17 @@ export const Registers = Object.freeze({
           end: 65,
         },
         {
-          name: 'Data de Geraçào',
+          name: 'Data de Geração',
           start: 66,
           end: 73,
         },
         {
-          name: 'Numero Sequenc saldo',
+          name: 'Número Sequencial do Saldo',
           start: 74,
           end: 79,
         },
         {
-          name: 'Versão do layout',
+          name: 'Versão do Layout',
           start: 80,
           end: 81,
         },
@@ -55,7 +55,7 @@ export const Registers = Object.freeze({
           end: 98,
         },
         {
-          name: 'Reservado parao futuro 099',
+          name: 'Reservado para o futuro',
           start: 99,
           end: 150,
         },
@@ -74,7 +74,7 @@ export const Registers = Object.freeze({
           end: 1,
         },
         {
-          name: 'IdClientenaEmpresa',
+          name: 'Id Cliente na Empresa',
           start: 2,
           end: 26,
         },
@@ -84,12 +84,12 @@ export const Registers = Object.freeze({
           end: 30,
         },
         {
-          name: 'IdClientenoBanco',
+          name: 'Id Cliente no Banco',
           start: 31,
           end: 44,
         },
         {
-          name: 'Datado Vencimento',
+          name: 'Data do Vencimento',
           start: 45,
           end: 52,
         },
@@ -99,42 +99,42 @@ export const Registers = Object.freeze({
           end: 67,
         },
         {
-          name: 'Código da moeda',
+          name: 'Código da Moeda',
           start: 68,
           end: 69,
         },
         {
-          name: 'Códigodo Plano',
+          name: 'Código do Plano',
           start: 70,
           end: 77,
         },
         {
-          name: 'Número Parcela',
+          name: 'Número da Parcela',
           start: 78,
           end: 81,
         },
         {
-          name: 'Quantidade Parcelas',
+          name: 'Quantidade de Parcelas',
           start: 82,
           end: 85,
         },
         {
-          name: 'Identificador Cobrança',
+          name: 'Identificador da Cobrança',
           start: 86,
           end: 95,
         },
         {
-          name: 'Id_titulo',
+          name: 'Id do Título',
           start: 96,
           end: 105,
         },
         {
-          name: 'Valor Parcela Recente',
+          name: 'Valor da Parcela Recente',
           start: 106,
           end: 113,
         },
         {
-          name: 'Convenio',
+          name: 'Convênio',
           start: 114,
           end: 118,
         },
@@ -165,7 +165,7 @@ export const Registers = Object.freeze({
           end: 1,
         },
         {
-          name: 'Id Cliente Empresa',
+          name: 'Id Cliente na Empresa',
           start: 2,
           end: 26,
         },
@@ -175,7 +175,7 @@ export const Registers = Object.freeze({
           end: 30,
         },
         {
-          name: 'Id Cliente Banco',
+          name: 'Id Cliente no Banco',
           start: 31,
           end: 44,
         },
@@ -185,12 +185,12 @@ export const Registers = Object.freeze({
           end: 52,
         },
         {
-          name: 'Valor do Original',
+          name: 'Valor Original',
           start: 53,
           end: 67,
         },
         {
-          name: 'Código da Retorno',
+          name: 'Código do Retorno',
           start: 68,
           end: 69,
         },
@@ -205,7 +205,7 @@ export const Registers = Object.freeze({
           end: 149,
         },
         {
-          name: 'Codigo do Movimento',
+          name: 'Código do Movimento',
           start: 150,
           end: 150,
         },
@@ -242,7 +242,7 @@ export const Registers = Object.freeze({
           end: 11,
         },
         {
-          name: 'Numero da parcela de referencia',
+          name: 'Número da parcela de referência',
           start: 12,
           end: 14,
         },
@@ -252,22 +252,22 @@ export const Registers = Object.freeze({
           end: 17,
         },
         {
-          name: 'Código tipo de recusa',
+          name: 'Código do tipo de recusa',
           start: 18,
           end: 21,
         },
         {
-          name: 'Descrição tipo de recusa',
+          name: 'Descrição do tipo de recusa',
           start: 22,
           end: 121,
         },
         {
-          name: 'Data da queda',
+          name: 'Data da Queda',
           start: 122,
           end: 129,
         },
         {
-          name: 'Data prevista de crédito / débito',
+          name: 'Data prevista de crédito/débito',
           start: 130,
           end: 137,
         },
@@ -282,7 +282,7 @@ export const Registers = Object.freeze({
           end: 156,
         },
         {
-          name: 'Código de referencia',
+          name: 'Código de referência',
           start: 157,
           end: 171,
         },
@@ -327,12 +327,12 @@ export const Registers = Object.freeze({
           end: 7,
         },
         {
-          name: 'Valor registros',
+          name: 'Valor dos registros',
           start: 8,
           end: 24,
         },
         {
-          name: 'fiituro',
+          name: 'Reservado para o futuro',
           start: 25,
           end: 150,
         },
