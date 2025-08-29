@@ -156,6 +156,62 @@ export const Registers = Object.freeze({
       ],
     },
   },
+  F: {
+    props: {
+      150: [
+        {
+          name: 'Tipo de registro do arquivo',
+          start: 1,
+          end: 1,
+        },
+        {
+          name: 'Id Cliente Empresa',
+          start: 2,
+          end: 26,
+        },
+        {
+          name: 'Agência para Débito',
+          start: 27,
+          end: 30,
+        },
+        {
+          name: 'Id Cliente Banco',
+          start: 31,
+          end: 44,
+        },
+        {
+          name: 'Data do Vencimento',
+          start: 45,
+          end: 52,
+        },
+        {
+          name: 'Valor do Original',
+          start: 53,
+          end: 67,
+        },
+        {
+          name: 'Código da Retorno',
+          start: 68,
+          end: 69,
+        },
+        {
+          name: 'Uso da Empresa',
+          start: 70,
+          end: 139,
+        },
+        {
+          name: 'Reservado para o futuro',
+          start: 140,
+          end: 149,
+        },
+        {
+          name: 'Codigo do Movimento',
+          start: 150,
+          end: 150,
+        },
+      ],
+    },
+  },
   H: {
     props: {
       9: [
@@ -287,6 +343,12 @@ export const Registers = Object.freeze({
 
 export const enginerSearch = (column: string) => {
   const typeColumn = column[0] as keyof typeof Registers
+
+  if (!Registers[typeColumn]) {
+    alert("Tipo não encontrado: Linha de tipo " + typeColumn)
+    return [typeColumn, []]
+  }
+
   const propsColumn = Registers[typeColumn].props
   const columnSize = column.length as keyof typeof propsColumn
 
